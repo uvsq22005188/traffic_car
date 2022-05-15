@@ -51,6 +51,9 @@ class Ville():
             3: {i: ImageTk.PhotoImage(Image.open(f"Images/Rond_point/3/rp_{i}.png")) for i in range(1, 5)},
             4: {1: ImageTk.PhotoImage(Image.open(f"Images/Rond_point/4/rp_1.png"))}
         }
+        self.image["voiture"] = {
+            i: ImageTk.PhotoImage(Image.open(f"Images/Voiture/voiture_{i}.png")) for i in range(1, 5)
+        }
 
     def placer_route(self, img):
         """"""
@@ -89,6 +92,12 @@ class Ville():
         self.menu_Création.add_command(
             label="Undo", command=lambda: self.canvas.delete(self.order.pop()))
 
+        # menu_voiture
+        self.menu_Voiture = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_Création.add_cascade(label="Voiture", menu=self.menu_Voiture)
+        for i in range(1, 5):
+            self.menu_Voiture.add_command(
+                image=self.image['voiture'][i], command=lambda i=i: self.creer_voiture(i))
         # menu route
         self.menu_Route = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Création.add_cascade(label="Route", menu=self.menu_Route)
@@ -230,7 +239,7 @@ class Ville():
     def setVar(self, var, value):
         setattr(self, var, value)
 
-    def creer_voiture(self):
+    def creer_voiture(self, i):
         self.coords = []
         self.stop = False
         self.canvas.bind(
