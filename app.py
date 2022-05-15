@@ -3,7 +3,7 @@ import os
 
 
 class Voiture():
-    def __init__(self):
+    def __init__(self, x, y, couleur):
         pass
 
 
@@ -26,6 +26,7 @@ class Ville():
         self.creer_canvas()
 
         self.route = []
+        self.voiture = []
 
         self.root.mainloop()
 
@@ -95,6 +96,8 @@ class Ville():
 
         if self.croisement:
             id = self.canvas.create_line(x1, y1, x2, y2, width=1)
+            # self.canvas.create_line(x1, y1, x2, y2, width=40, fill="white")
+            # self.canvas.create_line(x1, y1, x2, y2, width=10, fill="black", dash=(20, 5))
             pass
         else:
             id = self.canvas.create_line(x1, y1, x2, y2, width=1)
@@ -128,8 +131,12 @@ class Ville():
                 self.canvas.config(cursor="arrow")
                 return
             self.wait(100)
-        
-        self.voiture.append(Voiture())
+
+        x, y = self.coords[0]
+        l1 = self.canvas.find_overlapping(x - 25, y - 25, x + 25, y + 25)
+        if l1 != []:
+
+            self.voiture.append(Voiture(x, y))
 
     def charger(self):
         pass
