@@ -32,6 +32,7 @@ class Ville():
         self.route = []
         self.voiture = []
         self.stop = False
+        self.order = []
 
         self.root.mainloop()
 
@@ -66,6 +67,11 @@ class Ville():
             self.canvas.unbind("<Button-1>")
             self.canvas.delete("motion")
             self.stop = False
+            # Placement de la route
+            x1 = ((19 * x) // 1900) * 100 + 50
+            y1 = ((10 * y) // 1000) * 100 + 50
+            self.order.append(self.canvas.create_image(x1, y1, image=img))
+            self.canvas.update()
             return
 
     def creer_menu(self):
@@ -80,6 +86,8 @@ class Ville():
         # self.menu_Création.add_command(label="Nouvelle route", command=self.creer_route)
         self.menu_Création.add_command(
             label="Nouvelle voiture", command=self.creer_voiture)
+        self.menu_Création.add_command(
+            label="Undo", command=lambda: self.canvas.delete(self.order.pop()))
 
         # menu route
         self.menu_Route = tk.Menu(self.menu_bar, tearoff=0)
@@ -142,7 +150,7 @@ class Ville():
         self.menu_Rond_point.add_cascade(
             label="Rond-point 4", menu=self.menu_RP4)
         self.menu_RP4.add_command(
-            image=self.image['rp'][4][1], command=lambda i=i: self.placer_route(self.image['rp'][4][i]))
+            image=self.image['rp'][4][1], command=lambda i=i: self.placer_route(self.image['rp'][4][1]))
 
         self.menu_Aide = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Aide.add_command(label="Aide", command=lambda: os.system(
