@@ -52,7 +52,7 @@ class Ville():
             4: {1: ImageTk.PhotoImage(Image.open(f"Images/Rond_point/4/rp_1.png"))}
         }
         self.image["voiture"] = {
-            i: ImageTk.PhotoImage(Image.open(f"Images/Voiture/voiture_{i}.png")) for i in range(1, 5)
+            1: ImageTk.PhotoImage(Image.open(f"Images/Voiture/voiture_1.png"))
         }
 
     def placer_route(self, img):
@@ -95,9 +95,8 @@ class Ville():
         # menu_voiture
         self.menu_Voiture = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Création.add_cascade(label="Voiture", menu=self.menu_Voiture)
-        for i in range(1, 5):
-            self.menu_Voiture.add_command(
-                image=self.image['voiture'][i], command=lambda i=i: self.creer_voiture(i))
+        self.menu_Voiture.add_command(
+            image=self.image['voiture'][1], command=lambda: self.creer_voiture(1))
         # menu route
         self.menu_Route = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Création.add_cascade(label="Route", menu=self.menu_Route)
