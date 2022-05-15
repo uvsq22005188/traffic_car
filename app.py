@@ -29,6 +29,7 @@ class Ville():
 
         self.route = []
         self.voiture = []
+        self.stop = False
 
         self.root.mainloop()
 
