@@ -20,6 +20,7 @@ class Route():
 class Ville():
     def __init__(self):
         self.root = tk.Tk()
+        self.root.configure(bg='darkgrey')
         self.root.attributes("-fullscreen", True)
         self.root.iconbitmap("Images/icon.ico")
 
@@ -152,8 +153,8 @@ class Ville():
         self.root.config(menu=self.menu_bar)
 
     def creer_canvas(self):
-        self.canvas = tk.Canvas(self.root, highlightthickness=0)
-        self.canvas.pack(fill=tk.BOTH, expand=True)
+        self.canvas = tk.Canvas(self.root, width=1900, height=1000, highlightthickness=0, bg='white')
+        self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.canvas.focus_set()
 
     def creer_route(self):
