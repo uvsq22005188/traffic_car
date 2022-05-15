@@ -59,23 +59,24 @@ coord = (100, 300, 250, 300)
 # route1 = canvas.create_line(*coord, fill="black", width=10, dash=(20, 5))
 
 # Route horizontale bas droite
-coord = (350, 300, 500, 300)
-route1 = canvas.create_line(*coord, fill="black", width=50)
-route1 = canvas.create_line(*coord, fill="white", width=40)
-route1 = canvas.create_line(*coord, fill="black", width=10, dash=(20, 5))
+# coord = (350, 300, 500, 300)
+# route1 = canvas.create_line(*coord, fill="black", width=50)
+# route1 = canvas.create_line(*coord, fill="white", width=40)
+# route1 = canvas.create_line(*coord, fill="black", width=10, dash=(20, 5))
 
-# Centre rond point
-n = 5
-n2 = 20
-coord = (250 - n, 250 - n, 350 + n, 350 + n)
-coordCentre = (300 - n2, 300 - n2, 300 + n2, 300 + n2)
+# # Centre rond point
+# n = 5
+# n2 = 20
+# coord = (250 - n, 250 - n, 350 + n, 350 + n)
+# coordCentre = (300 - n2, 300 - n2, 300 + n2, 300 + n2)
 
-canvas.create_arc(*coord, start=22, extent=90, width=5, style=tk.ARC)
-canvas.create_arc(*coord, start=112, extent=90, width=5, style=tk.ARC)
-canvas.create_arc(*coord, start=202, extent=90, width=5, style=tk.ARC)
-canvas.create_arc(*coord, start=292, extent=46, width=5, style=tk.ARC)
+# canvas.create_arc(*coord, start=22, extent=90, width=5, style=tk.ARC)
+# canvas.create_arc(*coord, start=112, extent=90, width=5, style=tk.ARC)
+# canvas.create_arc(*coord, start=202, extent=90, width=5, style=tk.ARC)
+# canvas.create_arc(*coord, start=292, extent=46, width=5, style=tk.ARC)
 
-canvas.create_oval(*coordCentre, fill="black", width=5)
+# canvas.create_oval(*coordCentre, fill="black", width=5)
 
+# canvas.create_rectangle(90, 90, 110, 120, fill="black")
 
-root.mainloop()
+# root.mainloop()
