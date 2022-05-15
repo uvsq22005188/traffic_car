@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter.filedialog import askopenfilename
 from PIL import Image, ImageTk
 import os
 
@@ -51,7 +52,8 @@ class Ville():
 
     def placer_route(self, img):
         """"""
-        self.canvas.bind("<Motion>", lambda e, img=img: self.image_motion(e, img))
+        self.canvas.bind("<Motion>", lambda e,
+                         img=img: self.image_motion(e, img))
         self.canvas.bind("<Button-1>", lambda e: self.setVar("stop", True))
 
     def image_motion(self, event, img):
@@ -242,7 +244,8 @@ class Ville():
             self.voiture.append(Voiture(x, y))
 
     def charger(self):
-        pass
+        filename = askopenfilename(title="Ouvrir une map", filetypes=[
+                                   ("Fichier", "*.map")])
 
     def enregistrer(self):
         pass
