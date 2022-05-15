@@ -48,15 +48,21 @@ class Ville():
             4: {1: ImageTk.PhotoImage(Image.open(f"Images/Rond_point/4/rp_1.png"))}
         }
 
-    def placer_route(self):
+    def placer_route(self, img):
         """"""
-        self.canvas.bind("<Motion>", self.image_motion)
+        self.canvas.bind("<Motion>", lambda e, img=img: self.image_motion(e, img))
+        self.canvas.bind("<Button-1>", lambda e: self.setVar("stop", True))
 
-    def image_motion(self, event):
+    def image_motion(self, event, img):
         x, y = event.x, event.y
-        # CA PAS BIEN MAIS JE NE SAVAIS PAS QUOI METTRE POUR JUSTE SUPPRIMER L'IMAGE
-        self.canvas.delete("all")
-        self.canvas.create_image(x, y, image=self.image["route"][0])
+        self.canvas.delete("motion")
+        self.canvas.create_image(x, y, image=img, tag="motion")
+        if self.stop:
+            self.canvas.unbind("<Motion>")
+            self.canvas.unbind("<Button-1>")
+            self.canvas.delete("motion")
+            self.stop = False
+            return
 
     def creer_menu(self):
         self.menu_bar = tk.Menu(self.root, tearoff=0)
@@ -76,14 +82,14 @@ class Ville():
         self.menu_Création.add_cascade(label="Route", menu=self.menu_Route)
         for i in range(1, 5):
             self.menu_Route.add_command(
-                image=self.image['route'][i], command=lambda: print(f"route {i}"))
+                image=self.image['route'][i], command=lambda i=i: self.placer_route(self.image['route'][i]))
 
         # menu tournant
         self.menu_Tourant = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Création.add_cascade(label="Tourant", menu=self.menu_Tourant)
         for i in range(1, 5):
             self.menu_Tourant.add_command(
-                image=self.image['tournant'][i], command=lambda: print(f"tournant {i}"))
+                image=self.image['tournant'][i], command=lambda i=i: self.placer_route(self.image['tournant'][i]))
 
         # menu rond-point
         self.menu_Rond_point = tk.Menu(self.menu_bar, tearoff=0)
@@ -96,7 +102,7 @@ class Ville():
             label="Rond-point 1", menu=self.menu_RP1)
         for i in range(1, 5):
             self.menu_RP1.add_command(
-                image=self.image['rp'][1][i], command=lambda: print(f"RP 1 - {i}"))
+                image=self.image['rp'][1][i], command=lambda i=i: self.placer_route(self.image['rp'][1][i]))
 
         # menu rond-point 2-1
         self.menu_RP2 = tk.Menu(self.menu_bar, tearoff=0)
@@ -109,7 +115,7 @@ class Ville():
             label="Rond-point type 1", menu=self.menu_RP2_1)
         for i in range(1, 5):
             self.menu_RP2_1.add_command(
-                image=self.image['rp'][2_1][i], command=lambda: print(f"RP 2 type 1 - {i}"))
+                image=self.image['rp'][2_1][i], command=lambda i=i: self.placer_route(self.image['rp'][2_1][i]))
 
         # menu rond-point 2-2
         self.menu_RP2_2 = tk.Menu(self.menu_bar, tearoff=0)
@@ -117,7 +123,7 @@ class Ville():
             label="Rond-point type 2", menu=self.menu_RP2_2)
         for i in range(1, 3):
             self.menu_RP2_2.add_command(
-                image=self.image['rp'][2_2][i], command=lambda: print(f"RP 2 type 2 - {i}"))
+                image=self.image['rp'][2_2][i], command=lambda i=i: self.placer_route(self.image['rp'][2_2][i]))
 
         # menu rond-point 3
         self.menu_RP3 = tk.Menu(self.menu_bar, tearoff=0)
@@ -125,14 +131,14 @@ class Ville():
             label="Rond-point 3", menu=self.menu_RP3)
         for i in range(1, 5):
             self.menu_RP3.add_command(
-                image=self.image['rp'][3][i], command=lambda: print(f"RP 3 - {i}"))
+                image=self.image['rp'][3][i], command=lambda i=i: self.placer_route(self.image['rp'][3][i]))
 
         # menu rond-point 4
         self.menu_RP4 = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Rond_point.add_cascade(
             label="Rond-point 4", menu=self.menu_RP4)
         self.menu_RP4.add_command(
-            image=self.image['rp'][4][1], command=lambda: print(f"RP 4 1"))
+            image=self.image['rp'][4][1], command=lambda i=i: self.placer_route(self.image['rp'][4][i]))
 
         self.menu_Aide = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Aide.add_command(label="Aide", command=lambda: os.system(
