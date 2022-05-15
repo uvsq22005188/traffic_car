@@ -34,12 +34,19 @@ class Ville():
 
     def charger_image(self):
         self.image = {}
-        self.image["route"] = [
-            ImageTk.PhotoImage(Image.open("Images/Route/route_1.png")),
-            ImageTk.PhotoImage(Image.open("Images/Route/route_2.png")),
-            ImageTk.PhotoImage(Image.open("Images/Route/route_3.png")),
-            ImageTk.PhotoImage(Image.open("Images/Route/route_4.png"))
-        ]
+        self.image["route"] = {
+            i: ImageTk.PhotoImage(Image.open(f"Images/Route/route_{i}.png")) for i in range(1, 5)
+        }
+        self.image["tournant"] = {
+            i: ImageTk.PhotoImage(Image.open(f"Images/Tournant/tournant_{i}.png")) for i in range(1, 5)
+        }
+        self.image["rp"] = {
+            1: {i: ImageTk.PhotoImage(Image.open(f"Images/Rond_point/1/rp_{i}.png")) for i in range(1, 5)},
+            2_1: {i: ImageTk.PhotoImage(Image.open(f"Images/Rond_point/2_1/rp_{i}.png")) for i in range(1, 5)},
+            2_2: {i: ImageTk.PhotoImage(Image.open(f"Images/Rond_point/2_2/rp_{i}.png")) for i in range(1, 3)},
+            3: {i: ImageTk.PhotoImage(Image.open(f"Images/Rond_point/3/rp_{i}.png")) for i in range(1, 5)},
+            4: {1: ImageTk.PhotoImage(Image.open(f"Images/Rond_point/4/rp_1.png"))}
+        }
 
     def placer_route(self):
         """"""
@@ -67,18 +74,16 @@ class Ville():
         # menu route
         self.menu_Route = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Création.add_cascade(label="Route", menu=self.menu_Route)
-        self.menu_Route.add_command(
-            image=self.image['route'][0], command=self.placer_route)
-        self.menu_Route.add_command(
-            image=self.image['route'][1], command=lambda: print("route 2"))
-        self.menu_Route.add_command(
-            image=self.image['route'][2], command=lambda: print("route 3"))
-        self.menu_Route.add_command(
-            image=self.image['route'][3], command=lambda: print("route 4"))
+        for i in range(1, 5):
+            self.menu_Route.add_command(
+                image=self.image['route'][i], command=lambda: print(f"route {i}"))
 
         # menu tournant
         self.menu_Tourant = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Création.add_cascade(label="Tourant", menu=self.menu_Tourant)
+        for i in range(1, 5):
+            self.menu_Tourant.add_command(
+                image=self.image['tournant'][i], command=lambda: print(f"tournant {i}"))
 
         # menu rond-point
         self.menu_Rond_point = tk.Menu(self.menu_bar, tearoff=0)
@@ -89,6 +94,9 @@ class Ville():
         self.menu_RP1 = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Rond_point.add_cascade(
             label="Rond-point 1", menu=self.menu_RP1)
+        for i in range(1, 5):
+            self.menu_RP1.add_command(
+                image=self.image['rp'][1][i], command=lambda: print(f"RP 1 - {i}"))
 
         # menu rond-point 2-1
         self.menu_RP2 = tk.Menu(self.menu_bar, tearoff=0)
@@ -99,21 +107,32 @@ class Ville():
         self.menu_RP2_1 = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_RP2.add_cascade(
             label="Rond-point type 1", menu=self.menu_RP2_1)
+        for i in range(1, 5):
+            self.menu_RP2_1.add_command(
+                image=self.image['rp'][2_1][i], command=lambda: print(f"RP 2 type 1 - {i}"))
 
         # menu rond-point 2-2
         self.menu_RP2_2 = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_RP2.add_cascade(
             label="Rond-point type 2", menu=self.menu_RP2_2)
+        for i in range(1, 3):
+            self.menu_RP2_2.add_command(
+                image=self.image['rp'][2_2][i], command=lambda: print(f"RP 2 type 2 - {i}"))
 
         # menu rond-point 3
         self.menu_RP3 = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Rond_point.add_cascade(
             label="Rond-point 3", menu=self.menu_RP3)
+        for i in range(1, 5):
+            self.menu_RP3.add_command(
+                image=self.image['rp'][3][i], command=lambda: print(f"RP 3 - {i}"))
 
         # menu rond-point 4
         self.menu_RP4 = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Rond_point.add_cascade(
             label="Rond-point 4", menu=self.menu_RP4)
+        self.menu_RP4.add_command(
+            image=self.image['rp'][4][1], command=lambda: print(f"RP 4 1"))
 
         self.menu_Aide = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Aide.add_command(label="Aide", command=lambda: os.system(
