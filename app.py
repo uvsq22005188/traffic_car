@@ -1,4 +1,5 @@
 import tkinter as tk
+from PIL import Image, ImageTk
 import os
 
 
@@ -22,6 +23,7 @@ class Ville():
         self.root.attributes("-fullscreen", True)
         self.root.iconbitmap("Images/icon.ico")
 
+        self.charger_image()
         self.creer_menu()
         self.creer_canvas()
 
@@ -29,6 +31,15 @@ class Ville():
         self.voiture = []
 
         self.root.mainloop()
+    
+    def charger_image(self):
+        self.image = {}
+        self.image["route"] = [
+            ImageTk.PhotoImage(Image.open("Images/Route/route_1.png")),
+            ImageTk.PhotoImage(Image.open("Images/Route/route_2.png")),
+            ImageTk.PhotoImage(Image.open("Images/Route/route_3.png")),
+            ImageTk.PhotoImage(Image.open("Images/Route/route_4.png"))
+        ]
 
     def creer_menu(self):
         self.menu_bar = tk.Menu(self.root, tearoff=0)
@@ -38,8 +49,49 @@ class Ville():
         self.menu_Fichier.add_command(label="Enregistrer", command=self.enregistrer)
 
         self.menu_Création = tk.Menu(self.menu_bar, tearoff=0)
-        self.menu_Création.add_command(label="Nouvelle route", command=self.creer_route)
+        # self.menu_Création.add_command(label="Nouvelle route", command=self.creer_route)
         self.menu_Création.add_command(label="Nouvelle voiture", command=self.creer_voiture)
+
+        # menu route
+        self.menu_Route = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_Création.add_cascade(label="Route", menu=self.menu_Route)
+        self.menu_Route.add_command(image=self.image['route'][0], command=lambda: print("route 1"))
+        self.menu_Route.add_command(image=self.image['route'][1], command=lambda: print("route 2"))
+        self.menu_Route.add_command(image=self.image['route'][2], command=lambda: print("route 3"))
+        self.menu_Route.add_command(image=self.image['route'][3], command=lambda: print("route 4"))
+
+        # menu tournant
+        self.menu_Tourant = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_Création.add_cascade(label="Tourant", menu=self.menu_Tourant)
+
+        # menu rond-point
+        self.menu_Rond_point = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_Création.add_cascade(label="Rond-point", menu=self.menu_Rond_point)
+
+        # menu rond-point 1
+        self.menu_RP1 = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_Rond_point.add_cascade(label="Rond-point 1", menu=self.menu_RP1)
+
+        # menu rond-point 2-1
+        self.menu_RP2 = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_Rond_point.add_cascade(label="Rond-point 2", menu=self.menu_RP2)
+
+        # menu rond-point 2-1
+        self.menu_RP2_1 = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_RP2.add_cascade(label="Rond-point type 1", menu=self.menu_RP2_1)
+
+        # menu rond-point 2-2
+        self.menu_RP2_2 = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_RP2.add_cascade(label="Rond-point type 2", menu=self.menu_RP2_2)
+
+        # menu rond-point 3
+        self.menu_RP3 = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_Rond_point.add_cascade(label="Rond-point 3", menu=self.menu_RP3)
+
+        # menu rond-point 4
+        self.menu_RP4 = tk.Menu(self.menu_bar, tearoff=0)
+        self.menu_Rond_point.add_cascade(label="Rond-point 4", menu=self.menu_RP4)
+
 
         self.menu_Aide = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Aide.add_command(label="Aide", command=lambda: os.system("start https://github.com/uvsq22005188/traffic_car"))
