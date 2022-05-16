@@ -4,20 +4,6 @@ from PIL import Image, ImageTk
 import os
 
 
-class Voiture():
-    def __init__(self, x, y, couleur):
-        pass
-
-
-class Route():
-    def __init__(self, id, x1, y1, x2, y2):
-        self.id = id
-        self.x1 = x1
-        self.y1 = y1
-        self.x2 = x2
-        self.y2 = y2
-
-
 class Ville():
     def __init__(self):
         self.root = tk.Tk()
