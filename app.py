@@ -4,6 +4,30 @@ from PIL import Image, ImageTk
 import os
 
 
+class Voiture():
+    def __init__(self, other, x, y):
+        self.ville = other
+        self.x = x
+        self.y = y
+        self.draw()
+    
+    def load(self, angle):
+        self.image = ImageTk.PhotoImage(Image.open("Images/Voiture/voiture_1.png").rotate(angle, expand=True))
+        return self.image
+
+    def draw(self):
+        x = self.x * 19 // 1900
+        y = self.y * 10 // 1000
+        _id = self.ville.map[y][x]
+        if _id == None:
+            return
+        elif _id in [1, 2]:
+            self.im = self.ville.canvas.create_image(self.x, y * 100 + 59, image=self.load(-90))
+        elif _id in [3, 4]:
+            self.im = self.ville.canvas.create_image(x * 100 + 59, self.y, image=self.load(0))
+         
+
+
 class Ville():
     def __init__(self):
         self.root = tk.Tk()
@@ -75,10 +99,9 @@ class Ville():
                 self.map[y1 // 100][x1 // 100] = _id
                 self.order_route.append(self.canvas.create_image(x1, y1, image=img))
             else:
-                # Place une voiture
-                x1 = ((19 * x) // 1900) * 100 + 59
-                y1 = ((10 * y) // 1000) * 100 + 50
-                self.order_voiture.append(self.canvas.create_image(x1, y1, image=img))
+                # Place une voiture si il y a un route
+                if self.map[y // 100][x // 100] != None:
+                    self.order_voiture.append(Voiture(self, x, y))
             self.canvas.update()
             return
 
