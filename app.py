@@ -40,9 +40,7 @@ class Ville():
 
     def charger_image(self):
         self.image = {}
-        self.image["route"] = {
-            i: ImageTk.PhotoImage(Image.open(f"Images/Route/route_{i}.png")) for i in range(1, 5)
-        }
+        self.image["route"] = {i: ImageTk.PhotoImage(Image.open(f"Images/Route/route_{i}.png")) for i in range(1, 5)}
         self.image["tournant"] = {
             i: ImageTk.PhotoImage(Image.open(f"Images/Tournant/tournant_{i}.png")) for i in range(1, 5)
         }
@@ -57,13 +55,13 @@ class Ville():
             1: ImageTk.PhotoImage(Image.open(f"Images/Voiture/voiture_1.png"))
         }
 
-    def placer_route(self, img):
+    def placer_route(self, img, _id):
         """"""
         self.canvas.bind("<Motion>", lambda e,
-                         img=img: self.image_motion(e, img))
+                         img=img: self.image_motion(e, img, _id))
         self.canvas.bind("<Button-1>", lambda e: self.setVar("stop", True))
 
-    def image_motion(self, event, img):
+    def image_motion(self, event, img, _id):
         x, y = event.x, event.y
         self.canvas.delete("motion")
         self.canvas.create_image(x, y, image=img, tag="motion")
@@ -75,7 +73,7 @@ class Ville():
             # Placement de la route
             x1 = ((19 * x) // 1900) * 100 + 50
             y1 = ((10 * y) // 1000) * 100 + 50
-            self.map[y1 // 100][x1 // 100] = str(img)
+            self.map[y1 // 100][x1 // 100] = _id
             self.order.append(self.canvas.create_image(x1, y1, image=img))
             self.canvas.update()
             return
@@ -105,14 +103,14 @@ class Ville():
         self.menu_Création.add_cascade(label="Route", menu=self.menu_Route)
         for i in range(1, 5):
             self.menu_Route.add_command(
-                image=self.image['route'][i], command=lambda i=i: self.placer_route(self.image['route'][i]))
+                image=self.image['route'][i], command=lambda i=i: self.placer_route(self.image['route'][i], i))
 
         # menu tournant
         self.menu_Tourant = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Création.add_cascade(label="Tourant", menu=self.menu_Tourant)
         for i in range(1, 5):
             self.menu_Tourant.add_command(
-                image=self.image['tournant'][i], command=lambda i=i: self.placer_route(self.image['tournant'][i]))
+                image=self.image['tournant'][i], command=lambda i=i: self.placer_route(self.image['tournant'][i], i + 4))
 
         # menu rond-point
         self.menu_Rond_point = tk.Menu(self.menu_bar, tearoff=0)
@@ -125,7 +123,7 @@ class Ville():
             label="Rond-point 1", menu=self.menu_RP1)
         for i in range(1, 5):
             self.menu_RP1.add_command(
-                image=self.image['rp'][1][i], command=lambda i=i: self.placer_route(self.image['rp'][1][i]))
+                image=self.image['rp'][1][i], command=lambda i=i: self.placer_route(self.image['rp'][1][i], i + 8))
 
         # menu rond-point 2-1
         self.menu_RP2 = tk.Menu(self.menu_bar, tearoff=0)
@@ -138,7 +136,7 @@ class Ville():
             label="Rond-point type 1", menu=self.menu_RP2_1)
         for i in range(1, 5):
             self.menu_RP2_1.add_command(
-                image=self.image['rp'][2_1][i], command=lambda i=i: self.placer_route(self.image['rp'][2_1][i]))
+                image=self.image['rp'][2_1][i], command=lambda i=i: self.placer_route(self.image['rp'][2_1][i], i + 12))
 
         # menu rond-point 2-2
         self.menu_RP2_2 = tk.Menu(self.menu_bar, tearoff=0)
@@ -146,7 +144,7 @@ class Ville():
             label="Rond-point type 2", menu=self.menu_RP2_2)
         for i in range(1, 3):
             self.menu_RP2_2.add_command(
-                image=self.image['rp'][2_2][i], command=lambda i=i: self.placer_route(self.image['rp'][2_2][i]))
+                image=self.image['rp'][2_2][i], command=lambda i=i: self.placer_route(self.image['rp'][2_2][i], i + 16))
 
         # menu rond-point 3
         self.menu_RP3 = tk.Menu(self.menu_bar, tearoff=0)
@@ -154,14 +152,14 @@ class Ville():
             label="Rond-point 3", menu=self.menu_RP3)
         for i in range(1, 5):
             self.menu_RP3.add_command(
-                image=self.image['rp'][3][i], command=lambda i=i: self.placer_route(self.image['rp'][3][i]))
+                image=self.image['rp'][3][i], command=lambda i=i: self.placer_route(self.image['rp'][3][i], i + 18))
 
         # menu rond-point 4
         self.menu_RP4 = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Rond_point.add_cascade(
             label="Rond-point 4", menu=self.menu_RP4)
         self.menu_RP4.add_command(
-            image=self.image['rp'][4][1], command=lambda i=i: self.placer_route(self.image['rp'][4][1]))
+            image=self.image['rp'][4][1], command=lambda i=i: self.placer_route(self.image['rp'][4][1], 23))
 
         self.menu_Aide = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Aide.add_command(label="Aide", command=lambda: os.system(
