@@ -42,6 +42,7 @@ class Ville():
             1: ImageTk.PhotoImage(Image.open(f"Images/Voiture/voiture_1.png"))
         }
         self.image_id = [
+            None,
             *self.image["route"].values(),
             *self.image["tournant"].values(),
             *self.image["rp"][1].values(),
