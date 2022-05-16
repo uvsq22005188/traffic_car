@@ -18,7 +18,8 @@ class Ville():
         self.route = []
         self.voiture = []
         self.stop = False
-        self.order = []
+        self.order_route = []
+        self.order_voiture = []
 
         self.map = [[None] * 19 for _ in range(10)]
 
@@ -72,12 +73,12 @@ class Ville():
                 x1 = ((19 * x) // 1900) * 100 + 50
                 y1 = ((10 * y) // 1000) * 100 + 50
                 self.map[y1 // 100][x1 // 100] = _id
-                self.order.append(self.canvas.create_image(x1, y1, image=img))
+                self.order_route.append(self.canvas.create_image(x1, y1, image=img))
             else:
                 # Place une voiture
-                x1 = ((19 * x) // 1900) * 100 + 70
-                y1 = ((10 * y) // 1000) * 100 + 70
-                
+                x1 = ((19 * x) // 1900) * 100 + 59
+                y1 = ((10 * y) // 1000) * 100 + 50
+                self.order_voiture.append(self.canvas.create_image(x1, y1, image=img))
             self.canvas.update()
             return
 
@@ -91,7 +92,7 @@ class Ville():
 
         self.menu_Création = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_Création.add_command(
-            label="Undo", command=lambda: self.canvas.delete(self.order.pop()))
+            label="Undo", command=lambda: self.canvas.delete(self.order_route.pop()))
 
         # menu_voiture
         self.menu_Voiture = tk.Menu(self.menu_bar, tearoff=0)
