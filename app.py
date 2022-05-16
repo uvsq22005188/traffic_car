@@ -41,6 +41,15 @@ class Ville():
         self.image["voiture"] = {
             1: ImageTk.PhotoImage(Image.open(f"Images/Voiture/voiture_1.png"))
         }
+        self.image_id = [
+            *self.image["route"].values(),
+            *self.image["tournant"].values(),
+            *self.image["rp"][1].values(),
+            *self.image["rp"][2_1].values(),
+            *self.image["rp"][2_2].values(),
+            *self.image["rp"][3].values(),
+            *self.image["rp"][4].values()
+        ]
 
     def placer_route(self, img, _id):
         """"""
