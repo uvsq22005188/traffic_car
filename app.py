@@ -40,7 +40,8 @@ class Ville():
 
     def charger_image(self):
         self.image = {}
-        self.image["route"] = {i: ImageTk.PhotoImage(Image.open(f"Images/Route/route_{i}.png")) for i in range(1, 5)}
+        self.image["route"] = {i: ImageTk.PhotoImage(Image.open(
+            f"Images/Route/route_{i}.png")) for i in range(1, 5)}
         self.image["tournant"] = {
             i: ImageTk.PhotoImage(Image.open(f"Images/Tournant/tournant_{i}.png")) for i in range(1, 5)
         }
@@ -267,7 +268,7 @@ class Ville():
             ("Map", "*.map")], defaultextension=[("Map", ".map")])
 
         with open(filename, "r") as f:
-            self.map = f.readline()
+            self.map = eval(f.readline())
 
     def enregistrer(self):
         filename = asksaveasfilename(title="Enregistrer la map", filetypes=[
