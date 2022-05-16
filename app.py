@@ -34,6 +34,8 @@ class Ville():
         self.stop = False
         self.order = []
 
+        self.map = [[None] * 19 for _ in range(10)]
+
         self.root.mainloop()
 
     def charger_image(self):
@@ -73,6 +75,7 @@ class Ville():
             # Placement de la route
             x1 = ((19 * x) // 1900) * 100 + 50
             y1 = ((10 * y) // 1000) * 100 + 50
+            self.map[y1 // 100][x1 // 100] = str(img)
             self.order.append(self.canvas.create_image(x1, y1, image=img))
             self.canvas.update()
             return
@@ -171,7 +174,8 @@ class Ville():
         self.root.config(menu=self.menu_bar)
 
     def creer_canvas(self):
-        self.canvas = tk.Canvas(self.root, width=1900, height=1000, highlightthickness=0, bg='white')
+        self.canvas = tk.Canvas(self.root, width=1900,
+                                height=1000, highlightthickness=0, bg='white')
         self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.canvas.focus_set()
 
