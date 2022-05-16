@@ -191,6 +191,11 @@ class Ville():
 
         with open(filename, "r") as f:
             self.map = eval(f.readline())
+            for y, liste in enumerate(self.map):
+                for x, elem in enumerate(liste):
+                    if elem != None:
+                        self.canvas.create_image(
+                            x * 100 + 50, y * 100 + 50, image=self.image_id[elem])
 
     def enregistrer(self):
         filename = asksaveasfilename(title="Enregistrer la map", filetypes=[
