@@ -164,61 +164,6 @@ class Ville():
         self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.canvas.focus_set()
 
-    def creer_route(self):
-        self.coords = []
-        self.stop = False
-        self.croisement = False
-        self.canvas.bind(
-            "<Button-1>", lambda e: self.coords.append((e.x, e.y)))
-        self.canvas.bind("<Escape>", lambda _: self.setVar("stop", True))
-        self.canvas.config(cursor="crosshair")
-        while len(self.coords) < 2:
-            if self.stop:
-                self.coords = []
-                self.canvas.unbind("<Button-1>")
-                self.canvas.unbind("<Escape>")
-                self.canvas.config(cursor="arrow")
-                return
-            self.wait(100)
-
-        x1, y1, x2, y2 = (e for liste in self.coords for e in liste)
-
-        for route in self.route:
-            if abs(route.x1 - x1) < 25 and abs(route.y1 - y1) < 25:
-                x1, y1 = route.x1, route.y1
-                self.croisement = True
-            if abs(route.x2 - x1) < 25 and abs(route.y2 - y1) < 25:
-                x1, y1 = route.x2, route.y2
-                self.croisement = True
-            if abs(route.x1 - x2) < 25 and abs(route.y1 - y2) < 25:
-                x2, y2 = route.x1, route.y1
-                self.croisement = True
-            if abs(route.x2 - x2) < 25 and abs(route.y2 - y2) < 25:
-                x2, y2 = route.x2, route.y2
-                self.croisement = True
-
-            if (x1, y1) == (x2, y2) or (x1, y1, x2, y2) == (route.x1, route.y1, route.x2, route.y2):
-                self.coords = []
-                self.canvas.unbind("<Button-1>")
-                self.canvas.unbind("<Escape>")
-                self.canvas.config(cursor="arrow")
-                return
-
-        if self.croisement:
-            id = self.canvas.create_line(x1, y1, x2, y2, width=1)
-            # self.canvas.create_line(x1, y1, x2, y2, width=40, fill="white")
-            # self.canvas.create_line(x1, y1, x2, y2, width=10, fill="black", dash=(20, 5))
-            pass
-        else:
-            id = self.canvas.create_line(x1, y1, x2, y2, width=1)
-            # self.canvas.create_line(x1, y1, x2, y2, width=40, fill="white")
-            # self.canvas.create_line(x1, y1, x2, y2, width=10, fill="black", dash=(20, 5))
-        self.route.append(Route(id, x1, y1, x2, y2))
-        self.canvas.config(cursor="arrow")
-        self.stop = False
-        self.canvas.unbind("<Button-1>")
-        self.canvas.unbind("<Escape>")
-
     def wait(self, ms):
         var = tk.IntVar()
         self.root.after(ms, lambda: var.set(1))
@@ -228,26 +173,7 @@ class Ville():
         setattr(self, var, value)
 
     def creer_voiture(self, i):
-        self.coords = []
-        self.stop = False
-        self.canvas.bind(
-            "<Button-1>", lambda e: self.coords.append((e.x, e.y)))
-        self.canvas.bind("<Escape>", lambda _: self.setVar("stop", True))
-        self.canvas.config(cursor="crosshair")
-        while len(self.coords) < 1:
-            if self.stop:
-                self.coords = []
-                self.canvas.unbind("<Button-1>")
-                self.canvas.unbind("<Escape>")
-                self.canvas.config(cursor="arrow")
-                return
-            self.wait(100)
-
-        x, y = self.coords[0]
-        l1 = self.canvas.find_overlapping(x - 25, y - 25, x + 25, y + 25)
-        if l1 != []:
-
-            self.voiture.append(Voiture(x, y))
+        pass
 
     def charger(self):
         filename = askopenfilename(title="Ouvrir une map", filetypes=[
