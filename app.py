@@ -25,6 +25,8 @@ class Voiture():
             self.im = self.ville.canvas.create_image(self.x, y * 100 + 59, image=self.load(-90))
         elif _id in [3, 4]:
             self.im = self.ville.canvas.create_image(x * 100 + 59, self.y, image=self.load(0))
+        elif _id == 5:
+            self.im = self.ville.canvas.create_image(x * 100 + 47, y * 100 + 47, image=self.load(45))
          
 
 
