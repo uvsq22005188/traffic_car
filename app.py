@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import askopenfilename, asksaveasfilename
 from PIL import Image, ImageTk
 import os
 
@@ -264,10 +264,16 @@ class Ville():
 
     def charger(self):
         filename = askopenfilename(title="Ouvrir une map", filetypes=[
-                                   ("Fichier", "*.map")])
+            ("Map", "*.map")], defaultextension=[("Map", ".map")])
+
+        with open(filename, "r") as f:
+            self.map = f.readline()
 
     def enregistrer(self):
-        pass
+        filename = asksaveasfilename(title="Enregistrer la map", filetypes=[
+                                     ("Map", "*.map")], defaultextension=[("Map", ".map")])
+        with open(filename, "w") as f:
+            f.write(str(self.map))
 
 
 ville = Ville()
